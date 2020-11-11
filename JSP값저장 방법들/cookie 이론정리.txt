@@ -1,0 +1,46 @@
+쿠키는 클라이언트에게 저장할 수 있게 하는 기능이다.
+(서버가 아니라.) 
+
+----jsp 쿠키코드 -------
+
+		Cookie [] cookies = request.getCookies();
+
+		String v_ = request.getParameter("value");
+		String op = request.getParameter("op");
+		int v = 0;
+		if(!v_.equals("")){
+			v = Integer.parseInt(v_);
+		}
+		
+		int result = 0;
+		if(op.equals("=")) {
+			int x = 0;
+			for(Cookie c : cookies) {			 
+				if(c.getName().equals("value")){
+					x =Integer.parseInt(c.getValue());
+					break;
+				}
+			}
+			int y = v;
+			String operator = "";
+			for(Cookie c : cookies) {			 
+				if(c.getName().equals("op")){
+					operator =c.getValue();
+					break;
+				}
+			}
+			if(operator.equals("+")) {
+				result = x + y;
+				out.print(result);
+			}else {
+				result = x - y;
+				out.print(result);
+			}
+
+		}else {
+			Cookie valueCookie = new Cookie("value", String.valueOf(v));			
+			Cookie opCookie = new Cookie("op", op);
+			response.addCookie(valueCookie);
+			response.addCookie(opCookie);
+		}
+		

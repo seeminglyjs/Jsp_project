@@ -1,0 +1,45 @@
+jsp application 객체
+
+서블릿을 사용할때 그들 자신만의 데이터를 이어받을 수 있는 저장소가 필요하게 된다. 이를 서블릿 context라고 한다. 데이터를 이어갈 수 있는 역활을 한다. (상태 저장 공간이라고 보면된다.)
+
+또한 이른 웹에서는 application 저장소라고도 한다. 
+즉 application 저장소 =  서블릿 컨텍스트(context)라고 볼 수 있다.
+
+---jsp 명령문  ex)----
+계산기를 만든다는 기준하에 코드를 작성해보자 
+value = 숫자값  op = 계산에 사용할 수식들  + - 등등
+
+
+ServletContext application = request.getServletContext();
+// application 저장소를 선언하는 명령어
+
+application.setAttribute("value", v );
+application.setAttribute("op", op );
+//키하고 값을 넣게 된다. 
+//해당 값을 저장한다. 주구장창 해당 값을 쓸 수 있다.
+
+if(op.equals("=")){
+	
+	int x = (Integer) application.getAttribute("value");
+	// getAttribute 함수를 통해서 값을 불러온다. 다만 초기 String 값이기 때문에
+	// 강제 형변환을 해주어야 한다.
+	int y = v;
+	//지금 사용자가 전달한 값
+	
+	String operator =application.getAttribute("op");;
+	//op 값을 알아야 아래 if문을 비교할 수 있다.
+	int result = 0;
+	if(op.equals("+"))
+		result = x + y;
+	else
+		result = x - y;	
+	
+	reponse.getWriter().printf("result is %d\n, result);
+	//계산이 끝난후 html에서 출력할 명령문
+}else{
+	application.setAttribute("value", v );
+	application.setAttribute("op", op );
+}
+
+=을 받을 경우는 해당 값이 계산을 해야하는 과정이면
+그 외에는 값을 저장해두는 과정이다.

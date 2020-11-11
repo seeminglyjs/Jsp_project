@@ -1,0 +1,33 @@
+기본적인 코드 내용은 application 과 크게 다르지는 않음(로직은 같음)
+세션은 현재 사용자별 달라지는 공간으로 이해하면 된다.
+현재 접속자마다 부여받은 공간이 달라진다.
+
+----jsp 세션코드 -------
+
+Httpsession session = request.getSession();
+
+		String v_ = request.getParameter("value");
+		String op = request.getParameter("op");
+		int v = 0;
+		if(!v_.equals("")){
+			v = Integer.parseInt(v_);
+		}
+		
+		int result = 0;
+		if(op.equals("=")) {
+			int x = (Integer) session.getAttribute("value");
+			int y = v;
+			String operator =(String) session.getAttribute("op");
+			if(operator.equals("+")) {
+				result = x + y;
+				out.print(result);
+			}else {
+				result = x - y;
+				out.print(result);
+			}
+
+		}else {
+			session.setAttribute("value", v);
+			session.setAttribute("op",op);
+		}
+		
