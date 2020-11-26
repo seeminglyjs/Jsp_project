@@ -19,7 +19,7 @@ public class UserDAO {
 				  String dbID = "root";
 				  String dbPassword = "root";
 				  Class.forName("com.mysql.cj.jdbc.Driver");
-				//드라이버는 mysql에 접속할 수 있는 매개체 역활을 해준다.
+				//드라이버는 mysql에 접속할 수 있는 매개체 역활을 해준다.  
 				conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
 				//conn 객체안에 접속된 정보가 담기게 된다.
 			}catch (Exception e) {
